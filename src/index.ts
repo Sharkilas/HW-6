@@ -1,5 +1,9 @@
 import express, {Response, Request, NextFunction} from 'express';
 import dotenv from 'dotenv'
+import { blogsRoute } from './routes/blogs-routes';
+import { postsRoute } from './routes/posts-routers';
+import { testingRouters } from './routes/all-deleteRoute';
+import { runDB } from './repositories/db';
 
 
 export const app = express()
