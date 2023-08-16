@@ -41,7 +41,7 @@ blogsRoute.get('/:id', async (req: Request, res: Response) => {
 blogsRoute.get('/:blogId/posts', async (req: Request, res: Response) => {
   const Values = getPaginationFromQuery(req.query)  
   
-  let foundblogId = await blogsRepositories.getBlogsIdPosts(req.body.blogId, Values);                 // хз что надо передавать
+  let foundblogId = await blogsRepositories.getBlogsIdPosts(Values, req.params.blogId);                 // хз что надо передавать
     if (foundblogId) {
         res.status(httpStatusCodes.OK_200).json(foundblogId)   
       } else {
