@@ -10,9 +10,7 @@ import { PaginationInputModel, PaginationOutputModel } from "../models/paginatio
   export const blogsRepositories = {
     async getBlogs(Values: PaginationInputModel): Promise<PaginationOutputModel<itemBlogDbModel>> {
       const filter: any = {}                                                                          // хз правильно?
-      if (Values.searchNameTerm)
-      {filter.searchNameTerm= {$regex: Values.searchNameTerm}                            
-      }
+      if (Values.searchNameTerm) {filter.name = {$regex: Values.searchNameTerm, $options: 'i'}  }
 
       const blogs = await blogsClientCollection.find(filter, {projection: {_id: 0}})
                                               .sort({[Values.sortBy]: Values.sortDirection})

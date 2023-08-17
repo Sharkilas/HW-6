@@ -13,7 +13,7 @@ export const postsRepositories = {
   async getPosts(Values: PaginationInputModel): Promise<PaginationOutputModel<itemPostDBModel>> {
     const filter: any = {}                                                                          // хз правильно?
     if (Values.searchNameTerm)
-    {filter.searchNameTerm= {$regex: Values.searchNameTerm}                            
+    {filter.name= {$regex: Values.searchNameTerm}                            
     }
     const posts = await postsClientCollection.find(filter, {projection: {_id: 0}})
                                             .sort({[Values.sortBy]: Values.sortDirection})
