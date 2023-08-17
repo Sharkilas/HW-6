@@ -38,10 +38,10 @@ blogsRoute.get('/:id', async (req: Request, res: Response) => {
       
     })
                                                              //const foundBlogs = blogsRepositories.findBlog(req.query.name?.toISOString());
-blogsRoute.get('/:blogId/posts', async (req: Request, res: Response) => {
+blogsRoute.get('/blogId/posts', async (req: Request, res: Response) => {
   const Values = getPaginationFromQuery(req.query)  
   
-  let foundblogId = await blogsRepositories.getBlogsIdPosts(Values, req.params.blogId);                 // хз что надо передавать
+  let foundblogId = await blogsRepositories.getBlogsIdPosts(Values, req.params.blogId);              
     if (foundblogId) {
         res.status(httpStatusCodes.OK_200).json(foundblogId)   
       } else {
@@ -64,7 +64,7 @@ async (req: Request, res: Response) => {
     res.status(httpStatusCodes.CREATED_201).send(createdBlog)
 })
 
-blogsRoute.post('/:blogId/posts', 
+blogsRoute.post('/blogId/posts', 
 authGuardMiddleware,
 websiteBlogUrlValidation,
 nameBlogValidation,
