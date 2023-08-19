@@ -4,7 +4,7 @@ import { errorsMessages, httpStatusCodes } from "../http-status-codes/http-statu
 import { Request, Response } from "express";
 import {body, validationResult} from "express-validator";
 import {descriptionBlogValidation, nameBlogValidation, websiteBlogUrlValidation} from "../Validation/blogValidation"; //
-import { errorValidationMiddleware } from "../Validation/postValidation";
+import { blogIdPostBlogNewValidation, blogIdPostValidation, contentPostValidation, errorValidationMiddleware, shortDescriptionPostValidation, titlePostValidation } from "../Validation/postValidation";
 import { authGuardMiddleware } from "../autorization/autorizationmidleware";
 import { currentDate } from "../Helper/Helper";
 import { UpdateBlogInputModel } from "../models/blogsPostsModels";
@@ -38,7 +38,7 @@ blogsRoute.get('/:id', async (req: Request, res: Response) => {
       
     })
                                                              //const foundBlogs = blogsRepositories.findBlog(req.query.name?.toISOString());
-blogsRoute.get('/blogId/posts', async (req: Request, res: Response) => {
+blogsRoute.get('/:blogId/posts', async (req: Request, res: Response) => {
   const Values = getPaginationFromQuery(req.query)  
   
   let foundblogId = await blogsRepositories.getBlogsIdPosts(Values, req.params.blogId);              
@@ -66,9 +66,10 @@ async (req: Request, res: Response) => {
 
 blogsRoute.post('/:blogId/posts', 
 authGuardMiddleware,
-websiteBlogUrlValidation,
-nameBlogValidation,
-descriptionBlogValidation,
+titlePostValidation,
+shortDescriptionPostValidation,
+contentPostValidation,
+blogIdPostBlogNewValidation,
 errorValidationMiddleware,
 async (req: Request, res: Response) => {
   const title = req.body.title

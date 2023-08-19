@@ -1,4 +1,4 @@
-import {body, FieldValidationError, ValidationError, validationResult} from "express-validator";
+import {body, FieldValidationError, ValidationError, validationResult, param} from "express-validator";
 import { httpStatusCodes } from "../http-status-codes/http-status-codes";
 import { Request, Response, NextFunction} from "express";
 import { blogsClientCollection, db } from "../repositories/db";
@@ -7,6 +7,12 @@ import { blogsClientCollection, db } from "../repositories/db";
 export const titlePostValidation = body("title").exists().isString().trim().notEmpty().isLength({max:30});
 export const shortDescriptionPostValidation = body("shortDescription").exists().isString().trim().notEmpty().isLength({max:100});
 export const contentPostValidation = body("content").exists().isString().trim().notEmpty().isLength({max:1000});
+export const blogIdPostBlogNewValidation = param("blogId").exists().isString().trim().notEmpty().custom(async (blogId) => {
+  const existingBlog = await blogsClientCollection.findOne({id: blogId});
+  if(!existingBlog) throw new Error()   // throw прочитать
+  return true                                                                       
+});
+
 export const blogIdPostValidation = body("blogId").exists().isString().trim().notEmpty().custom(async (blogId) => {
   const existingBlog = await blogsClientCollection.findOne({id: blogId});
   if(!existingBlog) throw new Error()   // throw прочитать
