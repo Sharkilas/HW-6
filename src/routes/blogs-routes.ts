@@ -64,7 +64,7 @@ async (req: Request, res: Response) => {
     res.status(httpStatusCodes.CREATED_201).send(createdBlog)
 })
 
-blogsRoute.post('/blogId/posts', 
+blogsRoute.post('/:blogId/posts', 
 authGuardMiddleware,
 websiteBlogUrlValidation,
 nameBlogValidation,
