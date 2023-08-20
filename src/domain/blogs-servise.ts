@@ -28,14 +28,14 @@ import { blogsClientCollection, postsClientCollection } from "../repositories/db
       name:	name,
       description:	description,
       websiteUrl: websiteUrl,
-      createdAt: currentDate.toISOString(),
+      createdAt: new Date().toISOString(),
       isMembership: false
   }
-  const createdBlogService = await blogsRepositories.createBlog({...newBlog})
-  return createdBlogService   
+  await blogsRepositories.createBlog({...newBlog})
+  return newBlog   
 
 }, 
-async createBlogIdPosts({title, shortDescription, content, blogId}: CreatePostInputModel): Promise <itemPostDBModel | null> {        // пришлось прописывать типы (res: Response, req: Request) по другому выдавал ошибку
+async createBlogIdPosts({title, shortDescription, content, blogId}: CreatePostInputModel): Promise <itemPostDBModel | null> {       
   const blog =  await blogsClientCollection.findOne({id: blogId})  
   if(!blog) return null      
     const newPost: itemPostDBModel = {

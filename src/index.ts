@@ -1,4 +1,4 @@
-import express, {Response, Request, NextFunction} from 'express';
+import express, {Response, Request} from 'express';
 import dotenv from 'dotenv'
 import { blogsRoute } from './routes/blogs-routes';
 import { postsRoute } from './routes/posts-routers';

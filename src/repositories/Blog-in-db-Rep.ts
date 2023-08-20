@@ -5,12 +5,12 @@ import { blogsClientCollection, client, db, postsClientCollection } from "./db";
 import { randomUUID } from "crypto";
 import { CreateBlogInputModel, itemBlogDbModel, CreatePostInputModel, PageBlogViewModel, UpdateBlogInputModel, itemPostDBModel } from "../models/blogsPostsModels";
 import { PaginationInputModel, PaginationOutputModel } from "../models/pagination.model";
+import { Filter } from "mongodb";
 
   
   export const blogsRepositories = {
     async getBlogs(Values: PaginationInputModel): Promise<PaginationOutputModel<itemBlogDbModel>> {
-      const filter: any = {}                                                                          // хз правильно?
-      if (Values.searchNameTerm) {filter.name = {$regex: Values.searchNameTerm, $options: 'i'}  }
+      const filter: Filter<itemBlogDbModel> = {name: {$regex: Values.searchNameTerm ?? '', $options: 'i'} }          
 
       const blogs = await blogsClientCollection.find(filter, {projection: {_id: 0}})
                                               .sort({[Values.sortBy]: Values.sortDirection})
@@ -66,18 +66,9 @@ async updateBlog({id, name, description, websiteUrl}: UpdateBlogInputModel): Pro
 
  
 
-  async createBlog({name, description, websiteUrl}: CreateBlogInputModel): Promise <itemBlogDbModel> {                   
-    const newBlog: itemBlogDbModel = {         
-      id:	randomUUID(),                     
-      name:	name,
-      description:	description,
-      websiteUrl: websiteUrl,
-      createdAt: currentDate.toISOString(),
-      isMembership: false
-  }
+  async createBlog(newBlog: itemBlogDbModel): Promise <itemBlogDbModel> {                   
   
-   await blogsClientCollection.insertOne({...newBlog});
-
+   await blogsClientCollection.insertOne(newBlog);
    return newBlog   
 
 }, 

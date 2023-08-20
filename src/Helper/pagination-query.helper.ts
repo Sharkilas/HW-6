@@ -17,7 +17,7 @@ export const getPaginationFromQuery = (query: any): PaginationInputModel => {
     }
 
     if(query.sortBy) {
-        defaultValues.sortBy = query.createdAt
+        defaultValues.sortBy = query.sortBy
     }
 
 
@@ -27,11 +27,11 @@ export const getPaginationFromQuery = (query: any): PaginationInputModel => {
 
 
     if(query.pageNumber && !isNaN(parseInt(query.pageNumber, 10)) && parseInt(query.pageNumber, 10) > 0) {
-        defaultValues.pageNumber = query.pageNumber
+        defaultValues.pageNumber = parseInt(query.pageNumber, 10)
     }
 
     if(query.pageSize && !isNaN(parseInt(query.pageSize, 10)) && parseInt(query.pageSize, 10) > 0) {
-        defaultValues.pageSize = query.pageSize
+        defaultValues.pageSize = parseInt(query.pageSize, 10)
     }
 
 
