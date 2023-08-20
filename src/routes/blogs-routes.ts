@@ -69,15 +69,16 @@ authGuardMiddleware,
 titlePostValidation,
 shortDescriptionPostValidation,
 contentPostValidation,
-blogIdPostBlogNewValidation,
 errorValidationMiddleware,
 async (req: Request, res: Response) => {
   const title = req.body.title
   const shortDescription = req.body.shortDescription
   const content = req.body.content
-  const blogId = req.body.blogId
-  const createdBlog = await blogsService.createBlogIdPosts({title, shortDescription, content, blogId})
-    res.status(httpStatusCodes.CREATED_201).send(createdBlog)
+  const blogId = req.params.blogId
+  const blog = await blogsRepositories.getBlogById(blogId)
+  if(!blog) return res.sendStatus(404)
+  const createdPost= await blogsService.createBlogIdPosts({title, shortDescription, content, blogId})
+  return res.status(httpStatusCodes.CREATED_201).send(createdPost)
 })
       
     
