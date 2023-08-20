@@ -39,14 +39,14 @@ blogsRoute.get('/:id', async (req: Request, res: Response) => {
     })
                                                              //const foundBlogs = blogsRepositories.findBlog(req.query.name?.toISOString());
 blogsRoute.get('/:blogId/posts', async (req: Request, res: Response) => {
+  const blogId = req.params.blogId
+  const blog = await blogsRepositories.getBlogById(blogId)
+  if(!blog) return res.sendStatus(404)
   const Values = getPaginationFromQuery(req.query)  
   
-  let foundblogId = await blogsRepositories.getBlogsIdPosts(Values, req.params.blogId);              
-    if (foundblogId) {
-        res.status(httpStatusCodes.OK_200).json(foundblogId)   
-      } else {
-        res.sendStatus(404)
-      }
+  const foundblogId = await blogsRepositories.getBlogsIdPosts(Values, blogId);              
+  return res.status(httpStatusCodes.OK_200).json(foundblogId)   
+   
       
     })
 

@@ -37,7 +37,7 @@ import { PaginationInputModel, PaginationOutputModel } from "../models/paginatio
      },
   async getBlogsIdPosts(Values: PaginationInputModel, blogId: string): Promise<PaginationOutputModel<itemPostDBModel>> {
       const blogidPosts = await postsClientCollection
-      .find({id: blogId}, {projection: {_id: 0}})
+      .find({blogId: blogId}, {projection: {_id: 0}})
       .sort({[Values.sortBy]: Values.sortDirection})
       .skip(Values.skip)
       .limit(Values.pageSize)
