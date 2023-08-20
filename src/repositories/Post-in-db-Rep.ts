@@ -40,19 +40,8 @@ export const postsRepositories = {
      return await postsClientCollection.findOne(filter, {projection: {_id: 0}})
   },
 
-  async createPosts({title, shortDescription, content, blogId}: CreatePostInputModel): Promise <itemPostDBModel | null> {       
-  const blog =  await blogsClientCollection.findOne({id: blogId})  
-  if(!blog) return null      
-    const newPost: itemPostDBModel = {
-    id: randomUUID(),
-    title: title,
-    shortDescription: shortDescription,
-    content: content,
-    blogId: blogId,
-    blogName: blog.name,
-    createdAt: currentDate.toISOString(),
-  } 
-  await postsClientCollection.insertOne({...newPost})
+  async createPosts(newPost: itemPostDBModel){  
+  await postsClientCollection.insertOne(newPost)
   return newPost  
  },
  async updatePost({id, shortDescription, content, title, blogId}: UpdatePostInputModel): Promise <boolean> {                  

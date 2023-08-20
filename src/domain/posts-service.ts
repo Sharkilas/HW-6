@@ -21,7 +21,7 @@ export const postsServise = {
   async createPosts({title, shortDescription, content, blogId}: CreatePostInputModel): Promise <itemPostDBModel | null> {        // пришлось прописывать типы (res: Response, req: Request) по другому выдавал ошибку
   const blog =  await blogsClientCollection.findOne({id: blogId})  
   if(!blog) return null      
-    const newPost: itemPostDBModel = {
+  const newPost: itemPostDBModel = {
     id: randomUUID(),
     title: title,
     shortDescription: shortDescription,
