@@ -30,8 +30,8 @@ export const postsServise = {
     blogName: blog.name,
     createdAt: new Date().toISOString(),
   } 
-  const createdPostsService = await postsRepositories.createPosts({...newPost})
-  return createdPostsService  
+  await postsRepositories.createPosts({...newPost})
+  return newPost  
  },
  async updatePost({id, shortDescription, content, title, blogId}: UpdatePostInputModel): Promise <boolean> {                  
   return await postsRepositories.updatePost({id, title, shortDescription, content, blogId})

@@ -11,6 +11,7 @@ import { UpdateBlogInputModel } from "../models/blogsPostsModels";
 import { blogsService } from "../domain/blogs-servise";
 import { blogsRepositories } from "../repositories/Blog-in-db-Rep";
 import { getPaginationFromQuery } from "../Helper/pagination-query.helper";
+import { postsServise } from "../domain/posts-service";
 
 
 
@@ -77,7 +78,7 @@ async (req: Request, res: Response) => {
   const blogId = req.params.blogId
   const blog = await blogsRepositories.getBlogById(blogId)
   if(!blog) return res.sendStatus(404)
-  const createdPost= await blogsService.createBlogIdPosts({title, shortDescription, content, blogId})
+  const createdPost= await postsServise.createPosts({title, shortDescription, content, blogId})
   return res.status(httpStatusCodes.CREATED_201).send(createdPost)
 })
       
