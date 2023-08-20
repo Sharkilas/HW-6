@@ -4,8 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "yarn nodemon --inspect dist/index.js",
-    "watch": "yarn tsc -w",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon --inspect dist/index.js",
+    "watch": "tsc -w",
     "jest": "jest"
   },
   "dependencies": {
