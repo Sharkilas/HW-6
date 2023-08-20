@@ -12,7 +12,8 @@ export const postsRepositories = {
   
   async getPosts(Values: PaginationInputModel): Promise<PaginationOutputModel<itemPostDBModel>> {
     const filter = {}
-    const posts = await postsClientCollection.find(filter, {projection: {_id: 0}})
+    console.log(Values);
+        const posts = await postsClientCollection.find(filter, {projection: {_id: 0}})
                                             .sort({[Values.sortBy]: Values.sortDirection})
                                             .skip(Values.skip)
                                             .limit(Values.pageSize)
