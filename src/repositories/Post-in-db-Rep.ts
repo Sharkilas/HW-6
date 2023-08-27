@@ -4,8 +4,9 @@ import { blogsClientCollection, client, db, postsClientCollection } from "./db";
 import { randomUUID } from "crypto";
 import { MongoClient } from 'mongodb'
 import { title } from "process";
-import { CreatePostInputModel, itemPostDBModel, UpdatePostInputModel } from "../models/blogsPostsModels";
+import { CreatePostInputModel, UpdatePostInputModel } from "../models/blogsPostsModels";
 import { PaginationInputModel, PaginationOutputModel } from "../models/pagination.model";
+import { itemPostDBModel } from "../models/itemModels";
 
 
 export const postsRepositories = {

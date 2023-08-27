@@ -1,7 +1,8 @@
 
 import { randomUUID } from "crypto"
 import { currentDate } from "../Helper/Helper"
-import { CreateBlogInputModel, CreatePostInputModel, itemBlogDbModel, itemPostDBModel, PageBlogViewModel, UpdateBlogInputModel } from "../models/blogsPostsModels"
+import { CreateBlogInputModel, CreatePostInputModel, itemBlogDbModel, UpdateBlogInputModel } from "../models/blogsPostsModels"
+import { itemPostDBModel } from "../models/itemModels"
 import { PaginationInputModel, PaginationOutputModel } from "../models/pagination.model"
 import { blogsRepositories } from "../repositories/Blog-in-db-Rep" 
 import { blogsClientCollection, postsClientCollection } from "../repositories/db"
@@ -28,11 +29,11 @@ import { blogsClientCollection, postsClientCollection } from "../repositories/db
       name:	name,
       description:	description,
       websiteUrl: websiteUrl,
-      createdAt: currentDate.toISOString(),
+      createdAt: new Date().toISOString(),
       isMembership: false
   }
-  const createdBlogService = await blogsRepositories.createBlog({...newBlog})
-  return createdBlogService   
+  await blogsRepositories.createBlog({...newBlog})
+  return newBlog   
 
 }, 
 async createBlogIdPosts({title, shortDescription, content, blogId}: CreatePostInputModel): Promise <itemPostDBModel | null> {        // пришлось прописывать типы (res: Response, req: Request) по другому выдавал ошибку

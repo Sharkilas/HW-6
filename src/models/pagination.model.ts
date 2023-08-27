@@ -6,6 +6,8 @@
 //     skip(): number
 // }
 
+//import { type } from "os";
+
 // export interface BlogsPaginationInputModel extends DefaultPaginationInputModel {
 //     searchNameTerm: string,
 // }
@@ -24,6 +26,17 @@ export interface PaginationInputModel  {
     skip: number
 }
 
+export interface PaginationInputUserModel  {
+     searchLoginTerm: string,
+     searchEmailTerm: string,
+     sortBy: string,
+     sortDirection: 'asc' | 'desc',
+     pageNumber:	number,
+     pageSize: number,
+     skip: number
+}
+
+
 
 
 
@@ -34,3 +47,4 @@ export type PaginationOutputModel<T>= {
     totalCount:	number,
     items: T[]
 };
+

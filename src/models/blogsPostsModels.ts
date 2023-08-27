@@ -1,13 +1,6 @@
+import { itemBlogDbModel, itemPostDBModel } from "./itemModels";
 
-export type itemBlogDbModel= 
-{
-    id:	string,
-    name: string,
-    description: string,
-    websiteUrl:	string,
-    createdAt: string,
-    isMembership: boolean
-};
+
 
 export type PageBlogViewModel= 
 {
@@ -42,17 +35,6 @@ export type BlogInputModel = {
     websiteUrl: string,
     };
 
-export type itemPostDBModel=
-{
-id: string,
-title: string,
-shortDescription: string,
-content: string,
-blogId: string,
-blogName: string,
-createdAt: string
-    };
-
 export type PagePostViewModel= 
 {
 pagesCount:	number,
@@ -77,3 +59,6 @@ export type UpdatePostInputModel =
     blogId: string               
     }
         
+
+export { itemBlogDbModel };
+export	{itemPostDBModel};

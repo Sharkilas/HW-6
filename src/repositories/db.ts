@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { getRandomId } from "../Helper/Helper";
 import { MongoClient } from 'mongodb'
 import dotenv from 'dotenv'
-import { itemBlogDbModel, itemPostDBModel } from "../models/blogsPostsModels";
+import { itemBlogDbModel, itemPostDBModel, itemUserVievDBModel } from "../models/itemModels";
+
 dotenv.config()
 
 const mongoURI = process.env.MONGO_URL || 'mongodb//:0.0.0.0:27017'
@@ -10,10 +11,11 @@ export const client = new MongoClient(mongoURI);
 
 export let blogsClientCollection = client.db("homework-api").collection<itemBlogDbModel>('blogs'); 
 export let postsClientCollection = client.db("homework-api").collection<itemPostDBModel>('posts'); 
+export let userClientCollection = client.db("homework-api").collection<itemUserVievDBModel>('users');
 
 export async function runDB () {
   try {
-    await client.connect();                                                        // точно это надо?
+    await client.connect();                                                        
     await client.db("homework-api").command({ping: 1});
     console.log("Connected successufully to mongo server");
     }

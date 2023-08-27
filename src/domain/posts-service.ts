@@ -1,8 +1,9 @@
 import { randomUUID } from "crypto"
 import { currentDate } from "../Helper/Helper"
-import { CreatePostInputModel, itemPostDBModel, UpdatePostInputModel } from "../models/blogsPostsModels"
+import { CreatePostInputModel,  UpdatePostInputModel } from "../models/blogsPostsModels"
 import { blogsClientCollection, postsClientCollection } from "../repositories/db"
 import { postsRepositories } from "../repositories/Post-in-db-Rep"
+import { itemPostDBModel } from "../models/itemModels"
 
 
 
