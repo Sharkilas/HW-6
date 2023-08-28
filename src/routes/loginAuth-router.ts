@@ -13,5 +13,6 @@ passwordValidation,
 errorValidationMiddleware,
 async (req: Request, res: Response) => {
   const checkResult =  await userService.checkCredentials(req.body.loginOrEmail, req.body.password)
-  res.send(checkResult)
+  if(!checkResult) return res.sendStatus(401)
+  return res.send(checkResult)
 })

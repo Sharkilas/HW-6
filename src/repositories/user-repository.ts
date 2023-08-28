@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { itemUserVievDBModel } from "../models/itemModels";
+import { itemUserVievDBModel, TUserDbModel } from "../models/itemModels";
 import { PaginationInputUserModel, PaginationOutputModel } from "../models/pagination.model";
 import { userClientCollection } from "./db";
 
@@ -8,7 +8,7 @@ import { userClientCollection } from "./db";
 export const userRepository = {
     async getAllUser(Values: PaginationInputUserModel): Promise<PaginationOutputModel<itemUserVievDBModel>> {
         const filter = {}
-        const users = await userClientCollection.find(filter, {projection: {_id: 0}})
+        const users = await userClientCollection.find(filter, {projection: {_id: 0, passwordHash: 0, passwordSalt:0}})
                                      .sort({[Values.sortBy]: Values.sortDirection})
                                      .skip(Values.skip)
                                      .limit(Values.pageSize)
@@ -32,8 +32,8 @@ items: users
         //     .toArray()
     },
 
-    async createUser(user: itemUserVievDBModel): Promise<itemUserVievDBModel> {
-        const result = await userClientCollection.insertOne(user)
+    async createUser(user: TUserDbModel): Promise<TUserDbModel> {
+         await userClientCollection.insertOne(user)
         return user
     },
 
@@ -46,8 +46,8 @@ items: users
     }
     },
 
-    async findByLoginOrEmail(loginOrEmail: string){
-        const user = await userClientCollection.findOne({$or: [{email:loginOrEmail}, {userName: loginOrEmail}]})
+    async findByLoginOrEmail(loginOrEmail: string): Promise<TUserDbModel | null>{
+        const user = await userClientCollection.findOne({$or: [{email:{$regex: loginOrEmail ?? '', $options: 'i'}}, {userName: {$regex: loginOrEmail ?? '', $options: 'i'}}]})
         return user
     },
     

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getRandomId } from "../Helper/Helper";
 import { MongoClient } from 'mongodb'
 import dotenv from 'dotenv'
-import { itemBlogDbModel, itemPostDBModel, itemUserVievDBModel } from "../models/itemModels";
+import { itemBlogDbModel, itemPostDBModel, itemUserVievDBModel, TUserDbModel } from "../models/itemModels";
 
 dotenv.config()
 
@@ -11,7 +11,7 @@ export const client = new MongoClient(mongoURI);
 
 export let blogsClientCollection = client.db("homework-api").collection<itemBlogDbModel>('blogs'); 
 export let postsClientCollection = client.db("homework-api").collection<itemPostDBModel>('posts'); 
-export let userClientCollection = client.db("homework-api").collection<itemUserVievDBModel>('users');
+export let userClientCollection = client.db("homework-api").collection<TUserDbModel>('users');
 
 export async function runDB () {
   try {

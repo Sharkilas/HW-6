@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { itemUserVievDBModel } from "../models/itemModels";
+import { itemUserVievDBModel, TUserDbModel, TUserViewModel } from "../models/itemModels";
 import { LoginInputModel, userInputModel } from "../models/loginModels";
 import bcrypt from 'bcrypt'
 import { randomUUID } from "crypto";
@@ -8,12 +8,13 @@ import { userRepository } from "../repositories/user-repository";
 
 export const userService = {
     
-    async createUser({login, password, email}: userInputModel): Promise<itemUserVievDBModel>
+    async createUser({login, password, email}: userInputModel): Promise<TUserViewModel>
     {
         const passwordSalt = await bcrypt.genSalt(12);
         const passwordHash = await this.generateHash(password, passwordSalt);
 
-        const newUser: any  = {
+        const newUser: TUserDbModel  = {
+            _id: new ObjectId(),
             id: randomUUID(),
             login: login,
             passwordHash,
@@ -21,7 +22,13 @@ export const userService = {
             email:	email,
             createdAt:	new Date().toISOString() 
         }
-        return userRepository.createUser(newUser)
+        await userRepository.createUser(newUser)
+        return {
+            id: newUser.id,
+            login: newUser.login,
+            email: newUser.email,
+            createdAt: newUser.createdAt
+        }
     },
 
     async findUserById(id:string):  Promise<itemUserVievDBModel | null>{
@@ -35,10 +42,11 @@ export const userService = {
          if(!user) return false
          
          const passwordHash = await this.generateHash(password, user.passwordSalt);
-         if(user.passwordHash!==passwordHash) {
-            return false
-         }
-        return true
+         return user.passwordHash === passwordHash
+        //  if(user.passwordHash!==passwordHash) {
+        //     return false
+        //  }
+        // return true
     },
     
     async generateHash(password: string, salt: string) {

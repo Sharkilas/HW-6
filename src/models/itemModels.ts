@@ -1,3 +1,5 @@
+import { ObjectId } from "bson";
+
 export type itemPostDBModel=
 {
 id: string,
@@ -14,7 +16,7 @@ export type itemUserVievDBModel =
     id:	string,
     login:	string,
     email:	string,
-    createdAt:	string 
+    createdAt:	string,
 };
 
 export type itemBlogDbModel= 
@@ -26,3 +28,21 @@ export type itemBlogDbModel=
     createdAt: string,
     isMembership: boolean
 };
+
+
+export type TUserDbModel = {
+    _id: ObjectId
+    id:	string
+    login:	string
+    email:	string
+    createdAt:	string
+    passwordSalt: string
+    passwordHash: string
+}
+
+export type TUserViewModel = {
+    id:	string
+    login:	string
+    email:	string
+    createdAt:	string
+}

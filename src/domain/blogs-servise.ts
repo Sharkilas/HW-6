@@ -36,7 +36,7 @@ import { blogsClientCollection, postsClientCollection } from "../repositories/db
   return newBlog   
 
 }, 
-async createBlogIdPosts({title, shortDescription, content, blogId}: CreatePostInputModel): Promise <itemPostDBModel | null> {        // пришлось прописывать типы (res: Response, req: Request) по другому выдавал ошибку
+async createBlogIdPosts({title, shortDescription, content, blogId}: CreatePostInputModel): Promise <itemPostDBModel | null> {       
   const blog =  await blogsClientCollection.findOne({id: blogId})  
   if(!blog) return null      
     const newPost: itemPostDBModel = {
