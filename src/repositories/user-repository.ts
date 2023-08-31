@@ -7,7 +7,7 @@ import { userClientCollection } from "./db";
 
 export const userRepository = {
     async getAllUser(Values: PaginationInputUserModel): Promise<PaginationOutputModel<itemUserVievDBModel>> {
-        const filter = {}
+        const filter = {} // let filter: any = []                                                                                             const filter = {}
         const users = await userClientCollection.find(filter, {projection: {_id: 0, passwordHash: 0, passwordSalt:0}})
                                      .sort({[Values.sortBy]: Values.sortDirection})
                                      .skip(Values.skip)
@@ -17,10 +17,10 @@ export const userRepository = {
 const totalCount = await userClientCollection.countDocuments(filter)
 const pagesCount = Math.ceil(totalCount / Values.pageSize)
 return {
-pagesCount,
+pagesCount: pagesCount,
 page:	Values.pageNumber,
 pageSize:	Values.pageSize,
-totalCount,
+totalCount: totalCount,
 items: users
 }
 

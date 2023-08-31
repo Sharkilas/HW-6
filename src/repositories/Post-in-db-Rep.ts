@@ -17,14 +17,14 @@ export const postsRepositories = {
         const posts = await postsClientCollection.find(filter, {projection: {_id: 0}})
                                             .sort({[Values.sortBy]: Values.sortDirection})
                                             .skip(Values.skip)
-                                            .limit(Values.pageSize)
+                                            .limit(Values.pageSize) 
                                             .toArray()
 
     const totalCount = await postsClientCollection.countDocuments(filter)
     const pagesCount = Math.ceil(totalCount / Values.pageSize)
     return {
       pagesCount,
-      page:	Values.pageNumber,
+      page:	Values.pageNumber,           //2150
       pageSize:	Values.pageSize,
       totalCount,
       items: posts

@@ -12,7 +12,7 @@ async (req: Request, res: Response) => {
   const loginUser =  await userService.checkCredentials(req.body.loginOrEmail, req.body.password) //(req.body.login || req.body.email, req.body.password)
   if (loginUser) 
   {const newUser =  await userService.createUser(req.body)
-    res.status(httpStatusCodes.CREATED_201).send(newUser)
+    res.status(204).send(newUser)
   }
   else {
   res.status(httpStatusCodes.UNAUTHORIZED_401).send(loginUser)}
