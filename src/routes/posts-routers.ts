@@ -8,13 +8,24 @@ import {body, validationResult} from "express-validator";
 import { authGuardMiddleware } from "../autorization/autorizationmidleware";
 import { UpdatePostInputModel } from "../models/blogsPostsModels";
 import { postsServise } from "../domain/posts-service";
-import { getPaginationFromQuery } from "../Helper/pagination-query.helper";
+import { getPaginationFromQuery, getPaginationFromQueryComments } from "../Helper/pagination-query.helper";
 import { postsRepositories } from "../repositories/Post-in-db-Rep";
+import { commentsRepositories } from "../repositories/comment-in-db-Rep";
 
 
 export const postsRoute = Router ({})  
 
 
+postsRoute.get('/:postId/comments', async (req: Request, res: Response) => {
+  const postId = req.params.postId
+  const post = await postsRepositories.getPostsId(postId)
+  
+  if(!post) return res.sendStatus(404)
+  const Values = getPaginationFromQueryComments(req.query)   // или тут нужно пагинацию делать постов
+  const foundPostId = await postsRepositories.getPostsIdComments(Values, postId);              
+  return res.status(httpStatusCodes.OK_200).json(foundPostId)   
+  })
+  
 
 postsRoute.get('/', async (req: Request, res: Response) => {
   const Values = getPaginationFromQuery(req.query)  

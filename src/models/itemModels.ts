@@ -11,9 +11,21 @@ blogName: string,
 createdAt: string
     };
 
+export type itemPostCommentsDBModel=
+{
+id: string,
+content: string,
+commentatorInfo: {
+    userId: string,
+    userLogin: string
+  },
+createdAt: string
+};
+    
+
 export type itemUserVievDBModel =
 {
-    id:	string,
+    id?:	string,
     login:	string,
     email:	string,
     createdAt:	string,

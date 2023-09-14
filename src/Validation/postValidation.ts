@@ -5,7 +5,7 @@ import { blogsClientCollection, db } from "../repositories/db";
 
 // export const idPostValidation = body("id").exists().isString().trim().notEmpty(); 
 export const titlePostValidation = body("title").exists().isString().trim().notEmpty().isLength({max:30});
-export const shortDescriptionPostValidation = body("shortDescription").exists().isString().trim().notEmpty().isLength({max:100});
+export const  shortDescriptionPostValidation = body("shortDescription").exists().isString().trim().notEmpty().isLength({max:100});
 export const contentPostValidation = body("content").exists().isString().trim().notEmpty().isLength({max:1000});
 export const blogIdPostBlogNewValidation = param("blogId").exists().isString().trim().notEmpty().custom(async (blogId) => {
   const existingBlog = await blogsClientCollection.findOne({id: blogId});

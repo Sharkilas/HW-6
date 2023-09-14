@@ -6,5 +6,6 @@ export const loginValidation = body("login").exists().isString().trim().notEmpty
 export const emailValidation = body("email").exists().isString().isEmail().trim().notEmpty();
 export const createdAtLoginValidation = body("createdAt").exists().isString().isDate().trim().notEmpty();
 export const passwordValidation = body("password").exists().isString().trim().notEmpty().isLength({min: 6, max: 20});
+export const loginOremailValidation = body("loginOrEmail").exists().isString().trim().notEmpty();
 
 

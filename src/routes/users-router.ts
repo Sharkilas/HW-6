@@ -10,8 +10,8 @@ import { authGuardMiddleware } from '../autorization/autorizationmidleware';
 export const userRouter = Router ({})  
 
 userRouter.get('/', async (req: Request, res: Response) => {
-    const Values = getPaginationFromQueryUsers(req.query)  
-    const users = await userRepository.getAllUser(Values)
+    const Values = getPaginationFromQueryUsers(req.query)
+        const users = await userRepository.getAllUser(Values)
     res.status(httpStatusCodes.OK_200).send(users)                   
     }),
 

@@ -17,13 +17,12 @@ import { postsServise } from "../domain/posts-service";
 
 export const blogsRoute = Router ({})  
 
-// get => query repo
-// create / update / detele => service + repo
+
 
 
 blogsRoute.get('/', async (req: Request, res: Response) => {
       const Values = getPaginationFromQuery(req.query)
-      //console.log(pagination);
+   
       
       const blogs = await blogsRepositories.getBlogs(Values)
       res.status(httpStatusCodes.OK_200).send(blogs)

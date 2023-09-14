@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import express, {Response, Request, NextFunction, Router} from 'express';
-import { blogsClientCollection, postsClientCollection, userClientCollection } from '../repositories/db';
+import { blogsClientCollection, commentsClientCollection, postsClientCollection, userClientCollection } from '../repositories/db';
 
 export const testingRouters = Router({})
 
@@ -11,7 +11,8 @@ async (req: Request, res: Response) => {
   await Promise.all([ 
       blogsClientCollection.deleteMany({}),  
       postsClientCollection.deleteMany({}),
-      userClientCollection.deleteMany({})
+      userClientCollection.deleteMany({}),
+      commentsClientCollection.deleteMany({})
 ]) 
   res.sendStatus(204) 
 })

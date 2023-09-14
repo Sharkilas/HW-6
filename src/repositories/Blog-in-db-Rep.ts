@@ -57,9 +57,7 @@ import { itemPostDBModel } from "../models/itemModels";
         totalCount,
         items: blogidPosts
       }
-      // const totalPage: number =   Math.ceil(await blogsClientCollection.countDocuments({})/pageSize)                // или  просто передать totalCount общее кол-во стр 
-      // return blogsClientCollection.find({}, {projection: {_id: 0}}).skip(skipBlogs).limit(pageSize||10).toArray()         // .limit ($or :[{pageSize}, {10}]) -                            //скип - пропустить, лимит сколько взять
-    }, 
+      }, 
 
 
 

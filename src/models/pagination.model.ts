@@ -36,7 +36,14 @@ export interface PaginationInputUserModel  {
      skip: number
 }
 
-
+export interface PaginationInputCommentModel  {
+    postId: string,
+    pageNumber:	number,
+    pageSize: number,
+    sortBy: string,
+    skip: number,
+    sortDirection: 'asc' | 'desc',
+}
 
 
 

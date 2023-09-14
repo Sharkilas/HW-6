@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { currentDate, getRandomId } from "../Helper/Helper";
-import { blogsClientCollection, client, db, postsClientCollection } from "./db";
+import { blogsClientCollection, client, commentsClientCollection, db, postsClientCollection } from "./db";
 import { randomUUID } from "crypto";
 import { MongoClient } from 'mongodb'
 import { title } from "process";
 import { CreatePostInputModel, UpdatePostInputModel } from "../models/blogsPostsModels";
-import { PaginationInputModel, PaginationOutputModel } from "../models/pagination.model";
-import { itemPostDBModel } from "../models/itemModels";
+import { PaginationInputCommentModel, PaginationInputModel, PaginationOutputModel } from "../models/pagination.model";
+import { itemPostCommentsDBModel, itemPostDBModel } from "../models/itemModels";
 
 
 export const postsRepositories = {
@@ -30,6 +30,29 @@ export const postsRepositories = {
       items: posts
     }
   }, 
+  async getPostsIdComments (Values: PaginationInputCommentModel, postId: string): Promise<PaginationOutputModel<itemPostCommentsDBModel>> {
+    const postidComments = await commentsClientCollection
+    .find({postId: postId}, {projection: {_id: 0}})
+    .sort({[Values.sortBy]: Values.sortDirection})
+    .skip(Values.skip)
+    .limit(Values.pageSize)
+    .toArray()
+    
+    const totalCount = await commentsClientCollection.countDocuments({postId: postId})
+    const pagesCount = Math.ceil(totalCount / Values.pageSize)
+
+    return {
+      pagesCount,
+      page:	Values.pageNumber,
+      pageSize:	Values.pageSize,
+      totalCount,
+      items: postidComments
+    }
+    },
+
+
+
+  
  
   async getPostsId(id: string ): Promise<itemPostDBModel| null>  {
     const filter: any = {}                       

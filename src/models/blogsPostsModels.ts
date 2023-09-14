@@ -28,6 +28,14 @@ export type UpdateBlogInputModel = {
     createdAt: string,
     isMembership: true
   };
+ 
+ 
+
+
+
+
+
+
 export type BlogInputModel = {
     id: string,
     name: string,
